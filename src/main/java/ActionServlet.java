@@ -25,6 +25,11 @@ public class ActionServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		response.setHeader("Access-Control-Allow-Origin", "*");
+	    response.setHeader("Access-Control-Allow-Methods", "GET");
+	    response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+		
 		PrintWriter pw = response.getWriter();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

@@ -25,7 +25,8 @@ public class AccountServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		PrintWriter pw = response.getWriter();
+		
+	    PrintWriter pw = response.getWriter();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 
@@ -52,7 +53,6 @@ public class AccountServlet extends HttpServlet {
 		String lastname = userData.has("lname") ? userData.get("lname").getAsString() : null;
 		String email = userData.has("email") ? userData.get("email").getAsString() : null;
 		String password = userData.has("password") ? userData.get("password").getAsString() : null;
-
 		boolean hasValidLoginCredentials = (email != null && email.trim().length() > 0 && password != null
 				&& password.trim().length() > 0);
 
@@ -82,6 +82,7 @@ public class AccountServlet extends HttpServlet {
 				pw.write(cloudUserJson);
 				pw.flush();
 				// Test: Print the JSON string
+				System.out.println("Logged in success");
 				System.out.println(cloudUserJson);
 			} else {
 				// Failed to authenticate
@@ -92,6 +93,7 @@ public class AccountServlet extends HttpServlet {
 				}
 				pw.write(gson.toJson(errorString));
 				pw.flush();
+				System.out.println(errorString);
 				return;
 			}
 			break;
@@ -130,6 +132,7 @@ public class AccountServlet extends HttpServlet {
 				pw.write(cloudUserJson);
 				pw.flush();
 				// Test: Print the JSON string
+				
 				System.out.println(cloudUserJson);
 			}
 			else {
@@ -138,10 +141,12 @@ public class AccountServlet extends HttpServlet {
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 				pw.write(gson.toJson("User with email already exists"));
 				pw.flush();
+				System.out.println("User with email already exists");
 				return;
 			}
 			break;
 		}
 
 	}
+	
 }

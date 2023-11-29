@@ -111,6 +111,7 @@ public class Helper {
 		System.out.println("Initializing Firestore...");
 		FileInputStream refreshToken = null;
 		try {
+			// FileNotFoundException occurs, only works when we include the absolute filepath
 			refreshToken = new FileInputStream("todo-list-201-firebase-adminsdk-jlgqg-a360662814.json");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -126,7 +127,6 @@ public class Helper {
 			e.printStackTrace();
 			return;
 		}
-
 		FirebaseApp.initializeApp(options);
 		db = FirestoreClient.getFirestore();
 		_initialized = true;
