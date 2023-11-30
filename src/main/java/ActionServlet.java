@@ -320,7 +320,7 @@ public class ActionServlet extends HttpServlet {
 				String errorString = "Unexpected Error";
 				switch (result) {
 					case 1:
-						// Respond with User Json
+						// Respond with User JsonX
 						// Convert the User object to a JSON string
 						User cloudUserData = Helper.GetCurrentUserData();
 						String cloudUserJson = gson.toJson(cloudUserData);
@@ -489,6 +489,12 @@ public class ActionServlet extends HttpServlet {
 					// Reject with bad request, return error message as JSON
 					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 					pw.write(gson.toJson("Category ID not valid, must be >= 0"));
+					pw.flush();
+					return;
+				}
+				if (listName != null && listName.trim().length() > 0) {
+					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+					pw.write(gson.toJson("list name must be > 0"));
 					pw.flush();
 					return;
 				}

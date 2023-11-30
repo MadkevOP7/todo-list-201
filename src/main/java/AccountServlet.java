@@ -136,7 +136,7 @@ public class AccountServlet extends HttpServlet {
 				System.out.println(cloudUserJson);
 			}
 			else {
-				//User with email already exists
+				// User with email already exists
 				// Reject with bad request, return error message as JSON
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 				pw.write(gson.toJson("User with email already exists"));
@@ -145,10 +145,6 @@ public class AccountServlet extends HttpServlet {
 				return;
 			}
 			break;
-			
-		case "clear" :
-			Helper.ClearGuestData();
-			response.setStatus(HttpServletResponse.SC_OK);
 		}
 
 	}
