@@ -145,6 +145,10 @@ public class AccountServlet extends HttpServlet {
 				return;
 			}
 			break;
+			
+		case "clear" :
+			Helper.ClearGuestData();
+			response.setStatus(HttpServletResponse.SC_OK);
 		}
 
 	}

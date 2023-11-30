@@ -32,7 +32,10 @@ import com.google.firebase.database.ValueEventListener;
 public class Helper {
 	static Firestore db;
 	static boolean _initialized;
-	static User currentUserPtr;
+	static User currentUserPtr = new User();
+	public static void ClearGuestData() {
+		currentUserPtr.categories.clear();
+	}
 	// Function Implementations
 
 	///////////// Core Functions (Offline: Sorting)//////////
@@ -111,7 +114,8 @@ public class Helper {
 		System.out.println("Initializing Firestore...");
 		FileInputStream refreshToken = null;
 		try {
-			// FileNotFoundException occurs, only works when we include the absolute filepath
+			// FileNotFoundException occurs, only works when we include the absolute
+			// filepath
 			refreshToken = new FileInputStream("todo-list-201-firebase-adminsdk-jlgqg-a360662814.json");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -490,7 +494,7 @@ public class Helper {
 
 	/** Core Sync function, syncs memory cached User data with Firestore */
 	public static boolean SyncUserChanges() {
-		if (currentUserPtr == null)
+		if (currentUserPtr == null || currentUserPtr.email == null || currentUserPtr.email.isBlank())
 			return false;
 
 		// Uploads our cached user data to Firestore
@@ -571,6 +575,7 @@ public class Helper {
 /////////////////////////////////////////////////////////////
 
 }
+
 
 // Comparator class
 class DueDateSort implements Comparator<Task> {
