@@ -492,7 +492,7 @@ public class ActionServlet extends HttpServlet {
 					pw.flush();
 					return;
 				}
-				if (listName != null && listName.trim().length() > 0) {
+				if (listName != null && listName.trim().length() <= 0) {
 					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 					pw.write(gson.toJson("list name must be > 0"));
 					pw.flush();
