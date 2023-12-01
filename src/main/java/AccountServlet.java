@@ -23,10 +23,23 @@ public class AccountServlet extends HttpServlet {
 		Helper.InitializeFirestore();
 	}
 
+	protected void doOptions(HttpServletRequest request, HttpServletResponse response)
+                throws IOException {
+            // Set CORS headers for OPTIONS requests
+            response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+            response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+            response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+            response.setHeader("Access-Control-Allow-Credentials", "true");
+        }
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+		response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+		response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+		response.setHeader("Access-Control-Allow-Credentials", "true");
 		
-	    PrintWriter pw = response.getWriter();
+	    	PrintWriter pw = response.getWriter();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 
@@ -86,11 +99,12 @@ public class AccountServlet extends HttpServlet {
 				System.out.println(cloudUserJson);
 			} else {
 				// Failed to authenticate
-				response.setStatus(HttpServletResponse.SC_OK);
 				String errorString = "No Registered Email";
 				if (result == -1) {
-					errorString = "Incorrect Password";
-				}
+		                    errorString = "Incorrect Password";
+		                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+		                }
+                		else response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 				pw.write(gson.toJson(errorString));
 				pw.flush();
 				System.out.println(errorString);
