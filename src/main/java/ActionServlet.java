@@ -27,7 +27,7 @@ public class ActionServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		response.setHeader("Access-Control-Allow-Origin", "*");
-	    response.setHeader("Access-Control-Allow-Methods", "GET");
+	    response.setHeader("Access-Control-Allow-Methods", "POST");
 	    response.setHeader("Access-Control-Allow-Headers", "Content-Type");
 		
 		PrintWriter pw = response.getWriter();
@@ -651,7 +651,7 @@ public class ActionServlet extends HttpServlet {
 			case "addCategory": {
 				
 				//validate category name
-				if (categoryName != null && categoryName.trim().length() > 0) {
+				if (categoryName != null && categoryName.trim().length() <= 0) {
 					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 					pw.write(gson.toJson("category name must be > 0"));
 					pw.flush();
